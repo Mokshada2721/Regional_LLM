@@ -9,7 +9,10 @@ def query(payload):
     return response.json()
 
 st.title("💬 Vachanakar")
-st.caption("🚀 A streamlit chatbot powered by Hugging Face's Marathi GPT")
+st.caption("🚀 A chatbot to summarize text in Marathi")
+
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
@@ -21,6 +24,10 @@ if prompt := st.chat_input():
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
     output = query({"inputs": prompt})
-    msg = output[0]['generated_text']
-    st.session_state.messages.append({"role": "assistant", "content": msg})
-    st.chat_message("assistant").write(msg)
+    st.write("Response from Hugging Face API:", output)  # Print the output for debugging
+    if output and 'generated_text' in output[0]:
+        msg = output[0]['generated_text']
+        st.session_state.messages.append({"role": "assistant", "content": msg})
+        st.chat_message("assistant").write(msg)
+    else:
+        st.error("Error: Unable to generate response")
