@@ -14,16 +14,13 @@ st.caption("🚀 A chatbot to summarize text in Marathi")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
-
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
 if prompt := st.chat_input():
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
-    output = query({"inputs": prompt})
+    output = query({"inputs": prompt, "max_length": 200, "max_new_tokens": 50})  # Adjust max_length and max_new_tokens
     st.write("Response from Hugging Face API:", output)  # Print the output for debugging
     if output and 'generated_text' in output[0]:
         msg = output[0]['generated_text']
