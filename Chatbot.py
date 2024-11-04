@@ -33,10 +33,10 @@ def generate_response(prompt):
 
 
 st.title("💬 Vachanakar")
-st.caption("🚀 A chatbot for Marathi text summarization")
+st.caption("🚀 A chatbot for Marathi text generation, summarization and question answering")
 
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "Please enter text to summarize"}]
+    st.session_state["messages"] = [{"role": "assistant", "content": "Please enter prompt to generate text"}]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
