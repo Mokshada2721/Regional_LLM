@@ -3,7 +3,7 @@ import requests
 from langdetect import detect
 
 API_URL = "https://api-inference.huggingface.co/models/l3cube-pune/marathi-gpt"
-HEADERS = {"Authorization": "Bearer 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"}
+HEADERS = {"Authorization": "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"}
 
 def query(payload):
     response = requests.post(API_URL, headers=HEADERS, json=payload)
